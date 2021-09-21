@@ -1,0 +1,520 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.custom.i18n.resources" value="vastu" />
+	<constant name="struts.ui.theme" value="simple" />
+	<constant name="struts.action.excludePattern" value="/displayPdf,/getVimshottariDasha,/DisplayState,/cityLatLong,/ConvertToImage,/saveKundli,/validateActivation" />
+
+	<package name="default" namespace="/" extends="tiles-default">
+
+		<action name="Regis" class="com.telemune.mobileAstro.RegisAction">
+			<result name="SUCCESS" type="redirect-action">
+			<param name="actionName">Generate</param>
+            <param name="sessionId">${sessionId}</param>
+			</result>
+			<result name="FAILURE">/jsp/index.jsp</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+
+		<action name="userMgt" class="com.telemune.action.UserProfileAction"
+			method="userMgt">
+			<result name="SUCCESS" type="tiles">userMgt</result>
+			<result name="FAILURE">/jsp/index.jsp</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+		
+		<action name="addUser" class="com.telemune.action.UserProfileAction">
+			<result name="SUCCESS" type="tiles">addUser</result>
+			<result name="FAILURE">/jsp/index.jsp</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+
+		<action name="addUserExec" class="com.telemune.action.UserProfileAction"
+			method="addUser">
+			<result name="SUCCESS" type="redirect-action">
+				<param name="actionName">viewUser</param>
+			</result>
+			<result name="FAILURE">/jsp/index.jsp</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+
+		<action name="changePass" class="com.telemune.action.UserProfileAction"
+			method="changePassword">
+			<result name="SUCCESS" type="tiles">changePass</result>
+			<result name="FAILURE">/jsp/index.jsp</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+		<action name="changePassExec" class="com.telemune.action.UserProfileAction"
+			method="changePasswordExecute">
+			<result name="SUCCESS" type="tiles">
+				changePass
+			</result>
+			<result name="FAILURE">/jsp/index.jsp</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+		<action name="forgotPass" class="com.telemune.action.UserProfileAction"
+			method="forgotPasswordAction">
+			<result name="SUCCESS">/jsp/index.jsp</result>
+			<result name="ERROR">/jsp/logouterror.jsp</result>
+		</action>
+		<action name="forgotPassApp" class="com.telemune.action.UserProfileAction" method="forgotPasswordAction">
+			<result name="SUCCESS">/jsp/registerResponseMob.jsp</result>
+		       	<result name="ERROR">/jsp/registerResponseMob.jsp</result>
+		</action>		
+
+		<action name="viewUser" class="com.telemune.action.UserProfileAction"
+			method="viewUser">
+			<result name="SUCCESS" type="tiles">viewUser</result>
+			<result name="FAILURE">/jsp/index.jsp</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+		<action name="modifyUser" class="com.telemune.action.UserProfileAction"
+			method="modifyUser">
+			<result name="SUCCESS" type="tiles">modifyUser</result>
+			<result name="FAILURE">/jsp/index.jsp</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+		<action name="modifyUserExec" class="com.telemune.action.UserProfileAction"
+			method="modifyUserExecution">
+			<result name="SUCCESS" type="redirect-action">
+				<param name="actionName">viewUser</param>
+			</result>
+                        <result name="SAMEUSER" type="redirect-action">
+                                <param name="actionName">viewUser</param>
+                        </result>
+			<result name="FAILURE">/jsp/index.jsp</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+		<action name="deleteUserExec" class="com.telemune.action.UserProfileAction"
+			method="deleteUser">
+			<result name="SUCCESS" type="redirect-action">
+				<param name="actionName">viewUser</param>
+			</result>
+			<result name="FAILURE">/jsp/index.jsp</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+		<action name="roleMgt" class="com.telemune.action.RoleMgtAction"
+			method="roleMgt">
+			<result name="SUCCESS" type="tiles">roleMgt</result>
+			<result name="FAILURE">/jsp/index.jsp</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+		<action name="addRole" class="com.telemune.action.RoleMgtAction">
+			<result name="SUCCESS" type="tiles">addRole</result>
+			<result name="FAILURE">/jsp/index.jsp</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+		<action name="addRoleExec" class="com.telemune.action.RoleMgtAction"
+			method="addRoleExecute">
+			<result name="SUCCESS" type="redirect-action">
+				<param name="actionName">viewRole</param>
+			</result>
+			<result name="SUCCESS1" type="redirect-action">
+				<param name="actionName">addRole</param>
+			</result>
+			<result name="FAILURE">/jsp/index.jsp</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+		<action name="viewRole" class="com.telemune.action.RoleMgtAction"
+			method="viewRole">
+			<result name="SUCCESS" type="tiles">viewRole</result>
+			<result name="FAILURE">/jsp/index.jsp</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+		<action name="modifyRole" class="com.telemune.action.RoleMgtAction"
+			method="modifyRole">
+			<result name="SUCCESS" type="tiles">modifyRole</result>
+			<result name="FAILURE">/jsp/index.jsp</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+		<action name="modifyRoleExec" class="com.telemune.action.RoleMgtAction"
+			method="modifyRoleExecute">
+			<result name="SUCCESS" type="redirect-action">
+				<param name="actionName">viewRole</param>
+			</result>
+			<result name="FAILURE">/jsp/index.jsp</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+		<action name="viewAccessLink" class="com.telemune.action.RoleMgtAction"
+			method="viewAccessLink">
+			<result name="SUCCESS" type="tiles">viewAccessLink</result>
+			<result name="FAILURE">/jsp/index.jsp</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+		<action name="deleteRole" class="com.telemune.action.RoleMgtAction"
+			method="deleteRole">
+			<result name="SUCCESS" type="redirect-action">
+				<param name="actionName">viewRole</param>
+			</result>
+			<result name="FAILURE">/jsp/index.jsp</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+
+
+		<action name="Generate" class="com.telemune.action.GenerateKundliAction">
+			<result name="SUCCESS" type="tiles">loginPage</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+
+
+		<action name="AddEvent" class="com.telemune.action.GenerateKundliAction">
+                        <result name="SUCCESS" type="tiles">addEventPage</result>
+                        <result name="ERROR" type="redirect-action">
+                        <param name="actionName">Logout</param>
+                        <param name="message">2</param>
+                        </result>
+                </action>
+
+		<action name="submitKundliDetails" class="com.telemune.action.GenerateKundliAction"
+			method="populateAll">
+			<result name="SUCCESS" type="redirect-action">
+				<param name="actionName">kundliDetail</param>
+				<param name="genType">${genType}</param>
+				<param name="token">${token}</param>
+			</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+
+
+		<!-- <action name="submitKundliDetails" class="com.telemune.action.GenerateKundliAction"
+                        method="populateAll">
+                        <result name="SUCCESS" type="redirect-action">
+                                <param name="actionName">kundliDetail</param>
+                        </result>
+                        <result name="ERROR" type="redirect-action">
+                        	<param name="actionName">Logout</param>
+                        	<param name="message">2</param>
+			</result>
+                </action>-->
+
+
+		<action name="submitKundliDetailsBTR" class="com.telemune.action.GenerateKundliAction"
+                        method="populateBTR">
+                        <result name="SUCCESS" type="redirect-action">
+                                <param name="actionName">kundliDetail</param>
+                        </result>
+                        <result name="ERROR" type="redirect-action">
+                        <param name="actionName">Logout</param>
+                        <param name="message">2</param>
+                        </result>
+                </action>		
+
+
+		<action name="RegisMob" class="com.telemune.mobileAstro.RegisAction"
+			method="executeMob">
+			<result name="SUCCESS">/jsp/response.jsp</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+
+		
+		<action name="register" class="com.telemune.mobileAstro.RegisAction" method="register">
+                        <result name="SUCCESS">/jsp/register.jsp</result>
+                        <result name="ERROR" type="redirect-action">
+                                <param name="actionName">Logout</param>
+                                <param name="message">2</param>
+                        </result>
+                </action>
+	
+		<action name="registerNewUser" class="com.telemune.mobileAstro.RegisAction" method="registerNewUser">
+                        <result name="SUCCESS2">/jsp/index.jsp</result>
+                       	<result name="SUCCESS1">/jsp/registerSuccess.jsp</result>
+                       	<result name="SUCCESS3">/jsp/registerResponseMob.jsp</result>
+                       	<result name="SUCCESS4">/jsp/register.jsp</result>
+                        <result name="ERROR" type="redirect-action">
+                        	<param name="actionName">Logout</param>
+                        	<param name="message">2</param>
+                        </result>
+                </action>
+
+<!--		<action name="sendActivtionLink" class="com.telemune.mobileAstro.RegisAction" method="SendActivationLink">
+                        <result name="SUCCESS">/jsp/index.jsp</result>
+                        <result name="ERROR" type="redirect-action">
+                        <param name="actionName">Logout</param>
+                        <param name="message">2</param>
+                        </result>
+                </action>-->
+
+		<action name="getKundliCircle" class="com.telemune.action.GenerateKundliAction"
+                        method="getKundliCircle">
+			<result name="SUCCESS" type="redirect-action">
+                                <param name="actionName">downloadPdf</param>
+                                <param name="fileName">${fileName}</param>
+                        </result>
+                        <result name="ERROR" type="redirect-action">
+                        	<param name="actionName">Logout</param>
+                        	<param name="message">2</param>
+                        </result>
+                </action>
+
+		<action name="GenerateKundliFromDetails" class="com.telemune.action.GenerateKundliAction"
+			method="submitdetailsForKundli">
+			<result name="SUCCESS" type="redirect-action">
+				<param name="actionName">Generate</param>
+			</result>
+			<result name="SUCCESS1" type="tiles">lagnaChart</result>
+			<result name="SUCCESS2" type="redirect-action">
+				<param name="actionName">downloadPdf</param>
+				<param name="fileName">${astrobean.fileName}</param>
+			</result>
+			<result name="FAILURE" type="redirect-action">
+				<param name="actionName">Generate</param>
+			</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+
+
+	<!--	<action name="checkKundliCircle" class="com.telemune.action.GenerateKundliAction" method="isKundliCircleExists">
+                        <result name="SUCCESS" type="redirect-action">
+                                <param name="actionName">downloadPdf</param>
+                                <param name="fileName">${fileName}</param>
+                        </result>
+                        <result name="ERROR" type="redirect-action">
+                                <param name="actionName">Logout</param>
+                                <param name="message">2</param>
+                        </result>
+                </action>-->
+
+
+		<action name="downloadPdf" class="com.telemune.action.GenerateKundliAction"
+			method="download">
+			<result name="SUCCESS" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">fileInputStream</param>
+				<param name="contentDisposition">attachment;filename=${fileName}   		
+	    		</param>
+				<param name="bufferSize">4096</param>
+			</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+
+
+
+		<action name="Logout" class="com.telemune.mobileAstro.RegisAction"
+			method="logout">
+			<result name="SUCCESS"> /jsp/index.jsp</result>
+		</action>
+
+		<action name="kundliDetail" class="com.telemune.action.GenerateKundliAction"
+			method="submitdetailsForKundli">
+			<result name="SUCCESS" type="redirect-action">
+				<param name="actionName">Generate</param>
+			</result>
+			<result name="SUCCESS1" type="tiles">lagnaChart</result>
+			<result name="SUCCESS2" type="tiles">viewPdf</result>
+			
+			<result name="SUCCESS3" type="redirect-action">
+                                <param name="actionName">GetCountryState</param>
+                        </result>
+
+                        <result name="SUCCESS4" type="redirect-action">
+                                 <param name="actionName">viewEvent</param>
+                        </result>
+
+
+			<result name="FAILURE" type="redirect-action">
+				<param name="actionName">Generate</param>
+			</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+
+
+
+
+		<action name="kundliLog" class="com.telemune.action.GenerateKundliAction"
+			method="displayKundliLogs">
+			<result name="SUCCESS" type="tiles">kundliLogs</result>
+			<result name="FAILURE">/jsp/index.jsp</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+
+		<action name="generateOldKundli" class="com.telemune.action.GenerateKundliAction"
+			method="generateOldKundli">
+			<result name="SUCCESS" type="tiles">loginPage</result>
+			<result name="FAILURE">/jsp/index.jsp</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+
+		<action name="deleteOldKundli" class="com.telemune.action.GenerateKundliAction"
+			method="deleteOldKundliLog">
+			<result name="SUCCESS" type="redirect-action">
+				<param name="actionName">kundliLog</param>
+			</result>
+			<result name="FAILURE">/jsp/index.jsp</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+
+		
+		<action name="emailPdf" class="com.telemune.action.GenerateKundliAction"
+			method="emailPdf">
+			<result name="SUCCESS" type="tiles">emailPdf</result>
+			<result name="FAILURE">/jsp/index.jsp</result>
+			<result name="ERROR" type="redirect-action">
+			<param name="actionName">Logout</param>
+			<param name="message">2</param>
+			</result>
+		</action>
+
+
+<!--- BY ANKUR  -->
+
+		<action name="viewEventLog" class="com.telemune.action.GenerateKundliAction"
+                        method="showEventLog">
+                        <result name="SUCCESS" type="tiles">eventLog</result>
+                        <result name="FAILURE">/jsp/index.jsp</result>
+                        <result name="ERROR" type="redirect-action">
+                        <param name="actionName">Logout</param>
+                        <param name="message">2</param>
+                        </result>
+                </action>
+		
+
+
+		<action name="viewEvent" class="com.telemune.action.GenerateKundliAction" method="displayEventList">
+                        <result name="SUCCESS" type="tiles">eventDetail</result>
+                </action>
+
+
+                <action name="GetCountryState" class="com.telemune.action.GenerateKundliAction" method="getCountryState">
+                        <result name="SUCCESS" type="tiles">editDetail</result>
+                </action>
+
+                <action name="editDetails" class="com.telemune.action.GenerateKundliAction" method="generateOldDetail">
+                        <result name="SUCCESS" type="tiles">logBookProf</result>
+                        <result name="FAILURE">/jsp/index.jsp</result>
+                        <result name="ERROR" type="redirect-action">
+                        <param name="actionName">Logout</param>
+                        <param name="message">2</param>
+                        </result>
+                </action>
+
+		<action name="addEvent" class="com.telemune.action.GenerateKundliAction">
+                        <result name="SUCCESS" type="tiles">addEvent</result>
+                        <result name="FAILURE">/jsp/index.jsp</result>
+                        <result name="ERROR" type="redirect-action">
+                        <param name="actionName">Logout</param>
+                        <param name="message">2</param>
+                        </result>
+                </action>
+
+
+                <action name="logBookProf" class="com.telemune.action.GenerateKundliAction" method="generateOldDetail">
+                        <result name="SUCCESS" type="tiles">logBookProf</result>
+                        <result name="FAILURE">/jsp/index.jsp</result>
+                        <result name="ERROR" type="redirect-action">
+                        <param name="actionName">Logout</param>
+                        <param name="message">2</param>
+                        </result>                                                                                                                                                       </action>		
+		
+		<action name="deleteOldEvent" class="com.telemune.action.GenerateKundliAction"
+                        method="deleteOldEventLog">
+                        <result name="SUCCESS" type="redirect-action">
+                        <param name="actionName">viewEvent</param>
+                        </result>
+                        <result name="FAILURE">/jsp/index.jsp</result>
+                        <result name="ERROR" type="redirect-action">                                                                                                                    		<param name="message">2</param>
+			</result>
+                </action>
+
+		<action name="query" class="com.telemune.action.RoleMgtAction">
+			<result name="SUCCESS" >/jsp/custQuery.jsp</result>
+		       	<result name="FAILURE">/jsp/index.jsp</result>
+		     	<result name="ERROR" type="redirect-action">
+		        	<param name="actionName">Logout</param>
+		        	<param name="message">2</param>
+		        </result>
+		</action>
+
+                <action name="home" class="com.telemune.action.RoleMgtAction">
+                	<result name="SUCCESS">/jsp/index.jsp</result>
+                    	<result name="FAILURE">/jsp/index.jsp</result>
+                    	<result name="ERROR" type="redirect-action">
+                        	<param name="actionName">Logout</param>
+                                <param name="message">2</param>
+                        </result>
+            	</action>
+	</package>
+</struts>

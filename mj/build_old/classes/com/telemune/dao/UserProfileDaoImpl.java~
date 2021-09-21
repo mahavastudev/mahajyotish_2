@@ -1,0 +1,1059 @@
+package com.telemune.dao;
+
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.log4j.Logger;
+import com.telemune.dbutilities.Connection;
+import com.telemune.dbutilities.PreparedStatement;
+import com.telemune.mobileAstro.TSSJavaUtil;
+import com.telemune.model.CountryData;
+import com.telemune.model.GenerateKundli;
+import com.telemune.model.HttpLinks;
+import com.telemune.model.RoleInfo;
+import com.telemune.model.StateData;
+import com.telemune.model.UserInfo;
+import com.telemune.model.UserLinkDescription;
+
+public class UserProfileDaoImpl implements UserProfileDao {
+
+	private static final Logger logger = Logger
+			.getLogger(UserProfileDaoImpl.class);
+	private Connection con = null;
+	private PreparedStatement pstmt = null;
+	private ResultSet rs = null;
+
+	@Override
+	public int authenticateCredentials(UserLinkDescription userDetail) {
+		logger.info("inside Authenticate   username[" + userDetail.getUserNme()
+				+ "] pass   [" + userDetail.getPassword() + "]");
+		try {
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "select * from adminlogin where EMAIL=? and PASSWORD=?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userDetail.getUserNme());
+			pstmt.setString(2, userDetail.getPassword());
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				userDetail.setUserId(rs.getInt("ID"));
+				userDetail.setRoleId(rs.getInt("ROLE_ID"));
+				return 1;
+			}
+			return 0;
+		} catch (Exception e) {
+			logger.error("catch block of Authenticate  " + e.toString());
+			return 0;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (rs != null)
+					rs.close();
+				if (con != null)
+					TSSJavaUtil.instance().freeConnection(con);
+			} catch (Exception e) {
+				logger.error("finally block of Authenticate  " + e.toString());
+			}
+		}
+	}
+
+	@Override
+	public List<UserLinkDescription> getUserRoleList(int roleId) {
+		List<UserLinkDescription> list = new ArrayList<UserLinkDescription>();
+		try {
+			logger.info("Inside getting user role list according to roleId ["
+					+ roleId + "]");
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "select a.ROLE_ID,a.LINK_ID,b.DESCRIPTION from WEB_ACCESS a, HTTP_LINKS b where a.LINK_ID = b.LINK_ID and a.ROLE_ID=?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, roleId);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				UserLinkDescription userLink = new UserLinkDescription();
+				logger.info("Role Description   " + rs.getString("DESCRIPTION"));
+				userLink.setLinkId(rs.getInt("LINK_ID"));
+				userLink.setRoleId(rs.getInt("ROLE_ID"));
+				userLink.setLinkName(rs.getString("DESCRIPTION"));
+				list.add(userLink);
+			}
+		} catch (Exception e) {
+			logger.error("catch block of get user role list  " + e.toString());
+			return list;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (rs != null)
+					rs.close();
+				if (con != null)
+					TSSJavaUtil.instance().freeConnection(con);
+			} catch (Exception e) {
+				logger.error("finally block of get user role list  "
+						+ e.toString());
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public int addUser(UserInfo userInfo) {
+		try {
+			logger.info("inside insert new user info");
+			logger.info("user input data " + userInfo.toString());
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "insert into adminlogin"
+					+ "(NAME,PASSWORD,EMAIL,MOBILE_NO,ROLE_ID,create_date) values"
+					+ "(?,?,?,?,?,now())";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userInfo.getUname());
+			pstmt.setString(2, userInfo.getUpassword());
+			pstmt.setString(3, userInfo.getEmail());
+			pstmt.setString(4, userInfo.getMobileNo());
+			pstmt.setString(5, userInfo.getRoleId());
+			int result = pstmt.executeUpdate();
+			if (result > 0) {
+				return 1;
+			}
+		} catch (Exception e) {
+			logger.error("catch block of add new user  " + e.toString());
+			return 0;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (rs != null)
+					rs.close();
+				if (con != null)
+					TSSJavaUtil.instance().freeConnection(con);
+			} catch (Exception e) {
+				logger.error("finally block of add new user   " + e.toString());
+			}
+		}
+		return 0;
+	}
+
+	@Override
+	public int modifyUserInfo(UserInfo userInfo) {
+		try {
+			logger.info("inside,modify user info");
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "update adminlogin set "
+					+ "NAME=?,PASSWORD=?,EMAIL=?,MOBILE_NO=?,ROLE_ID=? "
+					+ "where ID=?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userInfo.getUname());
+			pstmt.setString(2, userInfo.getUpassword());
+			pstmt.setString(3, userInfo.getEmail());
+			pstmt.setString(4, userInfo.getMobileNo());
+			pstmt.setString(5, userInfo.getRoleId());
+			pstmt.setInt(6, userInfo.getuId());
+			int result = pstmt.executeUpdate();
+			logger.info("user modify info result " + result);
+			if (result > 0) {
+				return 1;
+			}
+		} catch (Exception e) {
+			logger.error("catch block of modify user info " + e.toString());
+			return 0;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (rs != null)
+					rs.close();
+				if (con != null)
+					TSSJavaUtil.instance().freeConnection(con);
+			} catch (Exception e) {
+				logger.error("finally block of modify user info "
+						+ e.toString());
+			}
+		}
+		return 0;
+	}
+
+	@Override
+	public int deleteUser(String userId) {
+		int result = 0;
+		try {
+			logger.info("inside,delete user info " + userId.toString());
+			String[] id = userId.split(",");
+			for (String uId : id) {
+				con = TSSJavaUtil.instance().getconnection();
+				String query = "delete from adminlogin where ID=?";
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, Integer.parseInt(uId.trim()));
+				result = pstmt.executeUpdate();
+			}
+		} catch (Exception e) {
+			logger.error("catch block of delete user " + e.toString());
+			return result;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (rs != null)
+					rs.close();
+				if (con != null)
+					TSSJavaUtil.instance().freeConnection(con);
+			} catch (Exception e) {
+				logger.error("finally block of delete user " + e.toString());
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public List<UserInfo> getUserList() {
+		List<UserInfo> userLst = new ArrayList<UserInfo>();
+		try {
+			logger.info("inside, getting users Info");
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "select a.ID,a.NAME,a.MOBILE_NO,a.EMAIL,a.PASSWORD,a.create_date,a.ROLE_ID,b.ROLE_NAME from adminlogin a ,ROLES_MASTER b where a.ROLE_ID=b.ROLE_ID";
+			pstmt = con.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				UserInfo userInfo = new UserInfo();
+				userInfo.setuId(rs.getInt("ID"));
+				userInfo.setUname(rs.getString("NAME"));
+				userInfo.setMobileNo(rs.getString("MOBILE_NO"));
+				userInfo.setEmail(rs.getString("EMAIL"));
+				userInfo.setUpassword(rs.getString("PASSWORD"));
+				userInfo.setCreateDate(rs.getString("create_date"));
+				userInfo.setRoleId(rs.getString("ROLE_ID"));
+				userInfo.setRoleName(rs.getString("ROLE_NAME"));
+				userLst.add(userInfo);
+			}
+		} catch (Exception e) {
+			logger.error("catch block of reading user info " + e.toString());
+			return userLst;
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+				if (con != null) {
+					TSSJavaUtil.instance().freeConnection(con);
+				}
+			} catch (Exception e) {
+				logger.error("finally block of reading user info "
+						+ e.toString());
+			}
+		}
+		return userLst;
+	}
+
+	@Override
+	public List<RoleInfo> getRoleList() {
+		List<RoleInfo> roleLst = new ArrayList<RoleInfo>();
+		try {
+			logger.info("inside, getting role Info");
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "select * from ROLES_MASTER";
+			pstmt = con.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				RoleInfo roleInfo = new RoleInfo();
+				roleInfo.setRoleId(rs.getInt("ROLE_ID"));
+				roleInfo.setRoleName(rs.getString("ROLE_NAME"));
+				roleInfo.setRoleDesc(rs.getString("DESCRIPTION"));
+				roleLst.add(roleInfo);
+			}
+		} catch (Exception e) {
+			logger.error("catch block of reading user role info "
+					+ e.toString());
+			return roleLst;
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+				if (con != null) {
+					TSSJavaUtil.instance().freeConnection(con);
+				}
+			} catch (Exception e) {
+				logger.error("finally block of reading user role info "
+						+ e.toString());
+			}
+		}
+		return roleLst;
+	}
+
+	@Override
+	public UserInfo getUserInfo(int uId) {
+		logger.info("inside getting user Info according to userId[" + uId + "]");
+		try {
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "select * from adminlogin where ID=?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, uId);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				UserInfo userInfo = new UserInfo();
+				userInfo.setuId(rs.getInt("ID"));
+				userInfo.setUname(rs.getString("NAME"));
+				userInfo.setMobileNo(rs.getString("MOBILE_NO"));
+				userInfo.setEmail(rs.getString("EMAIL"));
+				userInfo.setUpassword(rs.getString("PASSWORD"));
+				userInfo.setCreateDate(rs.getString("create_date"));
+				userInfo.setRoleId(rs.getString("ROLE_ID"));
+				return userInfo;
+			}
+			return null;
+		} catch (Exception e) {
+			logger.error("catch block of getting user info  " + e.toString());
+			return null;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (rs != null)
+					rs.close();
+				if (con != null)
+					TSSJavaUtil.instance().freeConnection(con);
+			} catch (Exception e) {
+				logger.error("finally block of getting user info  "
+						+ e.toString());
+			}
+		}
+	}
+
+	@Override
+	public int addUserRoles(RoleInfo roleInfo) {
+		logger.info("inside, add user rule");
+		try {
+			logger.info("user role input data " + roleInfo.toString());
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "insert into ROLES_MASTER"
+					+ "(role_id,ROLE_NAME,DESCRIPTION) values" + "(?,?,?)";
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, roleInfo.getRoleId());
+			pstmt.setString(2, roleInfo.getRoleName());
+			pstmt.setString(3, roleInfo.getRoleDesc());
+			int result = pstmt.executeUpdate();
+			if (result > 0) {
+				return 1;
+			}
+		} catch (Exception e) {
+			logger.error("catch block of add user role  " + e.toString());
+			return 0;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (rs != null)
+					rs.close();
+				if (con != null)
+					TSSJavaUtil.instance().freeConnection(con);
+			} catch (Exception e) {
+				logger.error("finally block of add user role " + e.toString());
+			}
+		}
+		return 0;
+	}
+
+	@Override
+	public int modifyUserRole(RoleInfo roleInfo) {
+		try {
+			logger.info("inside,modify user role info");
+			con = TSSJavaUtil.instance().getconnection();
+			logger.info(roleInfo.toString());
+			String query = "update ROLES_MASTER set "
+					+ "ROLE_NAME=?,DESCRIPTION=? " + "where ROLE_ID=?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, roleInfo.getRoleName());
+			pstmt.setString(2, roleInfo.getRoleDesc());
+			pstmt.setInt(3, roleInfo.getRoleId());
+			int result = pstmt.executeUpdate();
+			logger.info("modification user role result " + result);
+			if (result > 0) {
+				return 1;
+			}
+		} catch (Exception e) {
+			logger.error("catch block of modify user role " + e.toString());
+			return 0;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (rs != null)
+					rs.close();
+				if (con != null)
+					TSSJavaUtil.instance().freeConnection(con);
+			} catch (Exception e) {
+				logger.error("finally block of modify user role "
+						+ e.toString());
+			}
+		}
+		return 0;
+	}
+
+	@Override
+	public int deleteUserRole(int roleId) {
+		try {
+			logger.info("inside,delete user role");
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "delete from ROLES_MASTER where ROLE_ID=?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, roleId);
+			int result = pstmt.executeUpdate();
+			logger.info("delete user role result " + result);
+			if (result > 0) {
+				return 1;
+			}
+		} catch (Exception e) {
+			logger.error("catch block of delete user role " + e.toString());
+			return 0;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (rs != null)
+					rs.close();
+				if (con != null)
+					TSSJavaUtil.instance().freeConnection(con);
+			} catch (Exception e) {
+				logger.error("finally block of delete user role "
+						+ e.toString());
+			}
+		}
+		return 0;
+	}
+
+	@Override
+	public RoleInfo getRole(int roleId) {
+		logger.info("inside getting role Info according to roleId[" + roleId
+				+ "]");
+		try {
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "select a.ROLE_ID,a.ROLE_NAME,a.DESCRIPTION,b.LINK_ID from ROLES_MASTER a, WEB_ACCESS b where a.ROLE_ID = b.ROLE_ID and a.ROLE_ID=?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, roleId);
+			rs = pstmt.executeQuery();
+			RoleInfo roleInfo = new RoleInfo();
+			List<Integer> linkLst = new ArrayList<Integer>();
+			while (rs.next()) {
+				System.out.println(rs.getInt("LINK_ID"));
+				linkLst.add(rs.getInt("LINK_ID"));
+				roleInfo.setRoleId(rs.getInt("ROLE_ID"));
+				roleInfo.setRoleName(rs.getString("ROLE_NAME"));
+				roleInfo.setRoleDesc(rs.getString("DESCRIPTION"));
+				roleInfo.setAccessIdLst(linkLst);
+			}
+			System.out.println("linkList size " + linkLst.size());
+			return roleInfo;
+		} catch (Exception e) {
+			logger.error("catch block of getting role info  " + e.toString());
+			return null;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (rs != null)
+					rs.close();
+				if (con != null)
+					TSSJavaUtil.instance().freeConnection(con);
+			} catch (Exception e) {
+				logger.error("finally block of getting role info  "
+						+ e.toString());
+			}
+		}
+	}
+
+	@Override
+	public List<UserInfo> getUserList(String roleId) {
+		List<UserInfo> userLst = new ArrayList<UserInfo>();
+		try {
+			logger.info("inside, getting users Info");
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "select * from adminlogin where ROLE_ID=?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, roleId);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				UserInfo userInfo = new UserInfo();
+				userInfo.setuId(rs.getInt("ID"));
+				userInfo.setUname(rs.getString("NAME"));
+				userInfo.setMobileNo(rs.getString("MOBILE_NO"));
+				userInfo.setEmail(rs.getString("EMAIL"));
+				userInfo.setUpassword(rs.getString("PASSWORD"));
+				userInfo.setCreateDate(rs.getString("create_date"));
+				userInfo.setRoleId(rs.getString("ROLE_ID"));
+				userLst.add(userInfo);
+			}
+			return userLst;
+		} catch (Exception e) {
+			logger.error("catch block of reading user info " + e.toString());
+			return null;
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+				if (con != null) {
+					TSSJavaUtil.instance().freeConnection(con);
+				}
+			} catch (Exception e) {
+				logger.error("finally block of reading user info "
+						+ e.toString());
+			}
+		}
+	}
+
+	@Override
+	public boolean isUserExist(String userName) {
+		logger.info("inside is user exist username[" + userName + "]");
+		try {
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "select * from adminlogin where NAME=?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userName);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return true;
+			}
+		} catch (Exception e) {
+			logger.error("catch block of Authenticate  " + e.toString());
+			return false;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (rs != null)
+					rs.close();
+				if (con != null)
+					TSSJavaUtil.instance().freeConnection(con);
+			} catch (Exception e) {
+				logger.error("finally block of Authenticate  " + e.toString());
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean isRoleExist(String roleName) {
+		logger.info("inside is role exist as rolename[" + roleName + "]");
+		try {
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "select * from ROLES_MASTER where ROLE_NAME=?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, roleName);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return true;
+			}
+		} catch (Exception e) {
+			logger.error("catch block of Authenticate roleName  "
+					+ e.toString());
+			return false;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (rs != null)
+					rs.close();
+				if (con != null)
+					TSSJavaUtil.instance().freeConnection(con);
+			} catch (Exception e) {
+				logger.error("finally block of Authenticate roleName  "
+						+ e.toString());
+			}
+		}
+		return false;
+	}
+
+	public List<HttpLinks> getHttpLinks() {
+		List<HttpLinks> httpLst = new ArrayList<HttpLinks>();
+		try {
+			logger.info("inside, getting all httpLinks");
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "select * from HTTP_LINKS";
+			pstmt = con.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				HttpLinks httpLinks = new HttpLinks();
+				httpLinks.setLinkId(rs.getInt("LINK_ID"));
+				httpLinks.setLinkDesc(rs.getString("DESCRIPTION"));
+				httpLst.add(httpLinks);
+			}
+		} catch (Exception e) {
+			logger.error("catch block of getting all httpLinks " + e.toString());
+			return httpLst;
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+				if (con != null) {
+					TSSJavaUtil.instance().freeConnection(con);
+				}
+			} catch (Exception e) {
+				logger.error("finally block of getting all httpLinks "
+						+ e.toString());
+			}
+		}
+		return httpLst;
+	}
+
+	@Override
+	public int getMaxRoleId() {
+		logger.info("inside getting max roleId");
+		int maxId = 0;
+		try {
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "select max(ROLE_ID) AS ROLE_ID from ROLES_MASTER";
+			pstmt = con.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				maxId = rs.getInt("ROLE_ID");
+				System.out.println("maxId " + maxId);
+				return maxId;
+			}
+		} catch (Exception e) {
+			logger.error("catch block of getting max roleId " + e.toString());
+			return maxId;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (rs != null)
+					rs.close();
+				if (con != null)
+					TSSJavaUtil.instance().freeConnection(con);
+			} catch (Exception e) {
+				logger.error("finally block of getting max roleId  "
+						+ e.toString());
+			}
+		}
+		return maxId;
+	}
+
+	@Override
+	public int addUserAccessLink(int roleId, String accessValue) {
+		try {
+
+			logger.info("inside, insert user access link");
+			logger.info("RoleId " + roleId + " Access Link " + accessValue);
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "insert into WEB_ACCESS"
+					+ "(LINK_ID,ROLE_ID) values" + "(?,?)";
+			pstmt = con.prepareStatement(query);
+			String[] linkVlaue = accessValue.split(",");
+			for (String linkId : linkVlaue) {
+				pstmt.setInt(1, Integer.parseInt(linkId.trim()));
+				pstmt.setInt(2, roleId);
+				pstmt.addBatch();
+			}
+			int[] result = pstmt.executeBatch();
+			if (result.length > 0) {
+				return 1;
+			}
+		} catch (Exception e) {
+			logger.error("catch block of insert user access link  "
+					+ e.toString());
+			return 0;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (rs != null)
+					rs.close();
+				if (con != null)
+					TSSJavaUtil.instance().freeConnection(con);
+			} catch (Exception e) {
+				logger.error("finally block of insert user access link "
+						+ e.toString());
+			}
+		}
+		return 0;
+	}
+
+	/*
+	 * @Override public int modifyUserAccessLink(int roleId, String accessValue)
+	 * { try{ logger.info("inside, modify user access link"); con =
+	 * TSSJavaUtil.instance().getconnection(); String query =
+	 * "update WEB_ACCESS set "+ "LINK_ID=? "+ "where ROLE_ID=?"; pstmt =
+	 * con.prepareStatement (query); String[] linkVlaue =
+	 * accessValue.split(","); for(String linkId: linkVlaue){ pstmt.setInt(1,
+	 * Integer.parseInt(linkId.trim())); pstmt.setInt(2, roleId);
+	 * pstmt.executeUpdate(); } int[] result = pstmt.executeBatch();
+	 * if(result.length>0){ return 1; } } catch (Exception e) {
+	 * logger.error("catch block of modify user access link  "+e.toString());
+	 * return 0; } finally { try { if (pstmt != null) pstmt.close(); if (rs !=
+	 * null) rs.close(); if (con != null)
+	 * TSSJavaUtil.instance().freeConnection(con); } catch (Exception e) {
+	 * logger.error("finally block of modify user access link " + e.toString());
+	 * } } return 0; }
+	 */
+
+	@Override
+	public int deleteUserAccessLink(int roleId) {
+		try {
+			logger.info("inside,delete user access link");
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "delete from WEB_ACCESS where ROLE_ID=?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, roleId);
+			int result = pstmt.executeUpdate();
+			logger.info("delete user access link " + result);
+			if (result > 0) {
+				return 1;
+			}
+		} catch (Exception e) {
+			logger.error("catch block of delete user access link "
+					+ e.toString());
+			return 0;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (rs != null)
+					rs.close();
+				if (con != null)
+					TSSJavaUtil.instance().freeConnection(con);
+			} catch (Exception e) {
+				logger.error("finally block of delete user access link "
+						+ e.toString());
+			}
+		}
+		return 0;
+
+	}
+
+	@Override
+	public int changePassword(int userId, String newPassword) {
+		try {
+			logger.info("inside,change user password [" + newPassword + "]");
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "update adminlogin set " + "PASSWORD=? "
+					+ "where ID=?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, newPassword);
+			pstmt.setInt(2, userId);
+			int result = pstmt.executeUpdate();
+			logger.info("change user password result " + result);
+			if (result > 0) {
+				return 1;
+			}
+		} catch (Exception e) {
+			logger.error("catch block of cahnge user password " + e.toString());
+			return 0;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (rs != null)
+					rs.close();
+				if (con != null)
+					TSSJavaUtil.instance().freeConnection(con);
+			} catch (Exception e) {
+				logger.error("finally block of change user password "
+						+ e.toString());
+			}
+		}
+		return 0;
+	}
+
+	public int saveDetails(GenerateKundli generateKundli) {
+		try {
+			logger.info("inside, saveDetails [" + generateKundli + "]");
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "insert into  ASTRO_REQUEST_LOG(NAME,DOB,tob,longitude,latitude,address,USER_ID,COUNTRY,STATE) values(?,?,?,?,?,?,?,?,?)";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, generateKundli.getName());
+			pstmt.setString(2, generateKundli.getDob());
+			pstmt.setString(3, generateKundli.getTob());
+			pstmt.setString(4, generateKundli.getLongitude());
+			pstmt.setString(5, generateKundli.getLatitude());
+			pstmt.setString(6, generateKundli.getCity());
+			pstmt.setInt(7, generateKundli.getUserId());
+			pstmt.setString(8, generateKundli.getCountry());
+			pstmt.setString(9, generateKundli.getState());
+			int result = pstmt.executeUpdate();
+
+			if (result > 0) {
+				return 1;
+			}
+		} catch (Exception e) {
+			logger.error("catch block of saveDetails " + e.toString());
+			return 0;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (rs != null)
+					rs.close();
+				if (con != null)
+					TSSJavaUtil.instance().freeConnection(con);
+			} catch (Exception e) {
+				logger.error("finally block of saveDetails" + e.toString());
+			}
+		}
+		return 0;
+	}
+
+	@Override
+	public List<GenerateKundli> getOldKundliLogs(int userId) {
+		List<GenerateKundli> kundliLogsLst = new ArrayList<GenerateKundli>();
+		try {
+			logger.info("Inside getting old kundli logs list");
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "select * from ASTRO_REQUEST_LOG where USER_ID=?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userId);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				GenerateKundli generateKundli = new GenerateKundli();
+				generateKundli.setUserId(rs.getInt("USER_ID"));
+				generateKundli.setRequestId(rs.getInt("REQUEST_ID"));
+				generateKundli.setName(rs.getString("NAME"));
+				String[] dob = rs.getString("DOB").split("-");
+				generateKundli.setYear(dob[0]);
+				generateKundli.setMonth(dob[1]);
+				generateKundli.setDate(dob[2]);
+				generateKundli.setDob(rs.getString("DOB"));
+				String[] tob = rs.getString("tob").split(":");
+				generateKundli.setHour(tob[0]);
+				generateKundli.setMinute(tob[1]);
+				generateKundli.setSecond(tob[2]);
+				generateKundli.setTob(rs.getString("tob"));
+				generateKundli.setCity(rs.getString("address"));
+				generateKundli.setLatitude(rs.getString("latitude"));
+				generateKundli.setLongitude(rs.getString("longitude"));
+				kundliLogsLst.add(generateKundli);
+			}
+			return kundliLogsLst;
+		} catch (Exception e) {
+			logger.error("catch block of reading user old kundli logs list "
+					+ e.toString());
+			return null;
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+				if (con != null) {
+					TSSJavaUtil.instance().freeConnection(con);
+				}
+			} catch (Exception e) {
+				logger.error("finally block of reading user old kundli logs list "
+						+ e.toString());
+			}
+		}
+	}
+
+	@Override
+	public int deleteKundliLog(int requestId) {
+		try {
+			logger.info("inside,delete kundli log by requestId " + requestId);
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "delete from ASTRO_REQUEST_LOG where REQUEST_ID=?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, requestId);
+			int result = pstmt.executeUpdate();
+			if (result > 0) {
+				return 1;
+			}
+		} catch (Exception e) {
+			logger.error("catch block of delete kundli log " + e.toString());
+			return 0;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (rs != null)
+					rs.close();
+				if (con != null)
+					TSSJavaUtil.instance().freeConnection(con);
+			} catch (Exception e) {
+				logger.error("finally block of delete kundli log "
+						+ e.toString());
+			}
+		}
+		return 0;
+	}
+
+	@Override
+	public GenerateKundli getGenerateKundliLog(int requestId) {
+		GenerateKundli generateKundli = new GenerateKundli();
+		try {
+			logger.info("Inside reading old kundli log by requestId "
+					+ requestId);
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "select * from ASTRO_REQUEST_LOG where REQUEST_ID=?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, requestId);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				generateKundli.setUserId(rs.getInt("USER_ID"));
+				generateKundli.setRequestId(rs.getInt("REQUEST_ID"));
+				generateKundli.setName(rs.getString("NAME"));
+				generateKundli.setDob(rs.getString("DOB"));
+				String[] dob = rs.getString("DOB").split("-");
+				generateKundli.setYear(dob[0]);
+				generateKundli.setMonth(dob[1]);
+				generateKundli.setDate(dob[2]);
+				generateKundli.setTob(rs.getString("tob"));
+				String[] tob = rs.getString("tob").split(":");
+				generateKundli.setHour(tob[0]);
+				generateKundli.setMinute(tob[1]);
+				generateKundli.setSecond(tob[2]);
+				generateKundli.setCity(rs.getString("address"));
+				generateKundli.setLatitude(rs.getString("latitude"));
+				generateKundli.setLongitude(rs.getString("longitude"));
+			}
+			return generateKundli;
+		} catch (Exception e) {
+			logger.error("catch block of reading old kundli log "
+					+ e.toString());
+			return null;
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+				if (con != null) {
+					TSSJavaUtil.instance().freeConnection(con);
+				}
+			} catch (Exception e) {
+				logger.error("finally block of reading old kundli log "
+						+ e.toString());
+			}
+		}
+	}
+
+	@Override
+	public UserInfo getUserInfo(String userName, String email) {
+		logger.info("inside getting user Info by userName[" + userName + "]"
+				+ " email[" + userName + "]");
+		try {
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "select * from adminlogin where NAME=? and EMAIL=?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userName);
+			pstmt.setString(2, email);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				UserInfo userInfo = new UserInfo();
+				userInfo.setuId(rs.getInt("ID"));
+				userInfo.setUname(rs.getString("NAME"));
+				userInfo.setMobileNo(rs.getString("MOBILE_NO"));
+				userInfo.setEmail(rs.getString("EMAIL"));
+				userInfo.setUpassword(rs.getString("PASSWORD"));
+				userInfo.setCreateDate(rs.getString("create_date"));
+				userInfo.setRoleId(rs.getString("ROLE_ID"));
+				return userInfo;
+			}
+			return null;
+		} catch (Exception e) {
+			logger.error("catch block of getting user info  " + e.toString());
+			return null;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (rs != null)
+					rs.close();
+				if (con != null)
+					TSSJavaUtil.instance().freeConnection(con);
+			} catch (Exception e) {
+				logger.error("finally block of getting user info  "
+						+ e.toString());
+			}
+		}
+	}
+
+	@Override
+	public List<CountryData> getCountryList() {
+		List<CountryData> countryLst = new ArrayList<CountryData>();
+		try {
+			logger.info("inside, getting country lst from DB");
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "select * from country";
+			pstmt = con.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				CountryData countryData = new CountryData();
+				countryData.setName(rs.getString("name"));
+				countryData.setCode(rs.getString("code"));
+				countryData.setIsStateLst(rs.getInt("is_state_list"));
+				countryLst.add(countryData);
+			}
+		} catch (Exception e) {
+			logger.error("catch block of reading country lst from DB "
+					+ e.toString());
+			return countryLst;
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+				if (con != null) {
+					TSSJavaUtil.instance().freeConnection(con);
+				}
+			} catch (Exception e) {
+				logger.error("finally block of reading country lst from DB "
+						+ e.toString());
+				return countryLst;
+			}
+		}
+		return countryLst;
+	}
+
+	public List<StateData> getStateList(String contryCode) {
+		logger.info("inside getting state list from DB where contryCode "
+				+ contryCode);
+		List<StateData> stateLst = new ArrayList<StateData>();
+		try {
+			con = TSSJavaUtil.instance().getconnection();
+			String query = "select * from state where coun_code=?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, contryCode);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				StateData stateData = new StateData();
+				stateData.setSname(rs.getString("name"));
+				stateData.setScode(rs.getString("code"));
+				stateData.setCntryCode(rs.getString("coun_code"));
+				stateLst.add(stateData);
+			}
+			return stateLst;
+		} catch (Exception e) {
+			logger.error("catch block of getting state list  " + e.toString());
+			return stateLst;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (rs != null)
+					rs.close();
+				if (con != null)
+					TSSJavaUtil.instance().freeConnection(con);
+			} catch (Exception e) {
+				logger.error("finally block of getting state list  "
+						+ e.toString());
+				return stateLst;
+			}
+		}
+	}
+}

@@ -1,0 +1,7 @@
+USER ID    ACTION     UPDATED DATE              REMARK                                                       DETAIL
+                                 
+1          LOGIN      2020-09-17  12:58:51      User Logged In                                               0:0:0:0:0:0:0:1                         
+1          GENERATE   2020-09-17  12:59:04      UPDATED ASTRO_REQUEST_LOG for Name : Ashu Mittal DOB : 1985-12-15 TOB : 22:55:00 POB : Mansa 0:0:0:0:0:0:0:1                         
+1          GENERATE   2020-09-17  12:59:13      Generated Kundli For Name : Ashu Mittal DOB : 1985-12-15 TOB : 22:55:00 POB : Mansa 0:0:0:0:0:0:0:1                         
+1          LOGIN      2020-09-17  13:33:25      User Logged In                                               0:0:0:0:0:0:0:1                         
+1          GENERATE   2020-09-17  13:33:55      Generated Kundli For Name : gaurav sharma DOB : 1992-08-26 TOB : 17:05:00 POB : Dadri 0:0:0:0:0:0:0:1                         

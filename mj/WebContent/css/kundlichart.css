@@ -1,0 +1,198 @@
+.kundli-chart { background:url(../images/kundli-box.png) no-repeat 50% 50%; background-size:contain; width:800px; height:402px; margin:15px auto; padding: 0 0; position:relative; text-align:center; font-family:'Roboto',sans-serif; font-size:18px; line-height:1; font-weight:400; -webkit-transition:all 500ms ease-out; transition:all 500ms ease-out;}
+.kundli-chart span { display:block; padding:0 0.5em; }
+.kundli-chart strong { display:block; color:#fe9805; padding:0.125em 0.25em; font-weight:600;}
+.kundli-chart > [class*=" rs"], .kundli-chart > [class^="rs"] { position:absolute; -webkit-transition:all 400ms ease-out 300ms; transition:all 400ms ease-out 300ms;}
+/*.kundli-chart > [class*=" rl"], .kundli-chart > [class^="rl"] { position:absolute; -webkit-transition:all 600ms ease-out 400ms; transition:all 600ms ease-out 400ms;}*/
+
+/*bharti*/
+#cus, .cus{ top:2%;}
+
+.kundli-chart .rs1, .kundli-chart .rs2, .kundli-chart .rs11, .kundli-chart .rs12 { width:48%; top:12px; text-align:center;}
+/*.kundli-chart .rs1 strong, .kundli-chart .rs2 strong,*/
+.kundli-chart .rs11 strong, .kundli-chart .rs12 strong { /*display:block; padding:1em 0;*/}
+.kundli-chart .rs4 strong, .kundli-chart .rs9 strong { /*display:block; padding:1.5em 0;*/}
+.kundli-chart .rs3, .kundli-chart .rs5 { top:15%;}
+.kundli-chart .rs4 { top:10%;}
+.kundli-chart .rs6, .kundli-chart .rs7 { width:42%; top:42%;}
+.kundli-chart .rs8, .kundli-chart .rs10 { top:65%;}
+.kundli-chart .rs9 { top:60%; }
+.kundli-chart .rs11, .kundli-chart .rs12 { top:78%;}
+
+.kundli-chart .rs1, .kundli-chart .rs11 { left:1%;}
+.kundli-chart .rs2, .kundli-chart .rs12 { right:1%;}
+.kundli-chart .rs3, .kundli-chart .rs8 { width:20%; left:1%; text-align:left;}
+.kundli-chart .rs4, .kundli-chart .rs9 { width:40%; left:30%;}
+.kundli-chart .rs5, .kundli-chart .rs10 { width:20%; right:1%; text-align:right;}
+.kundli-chart .rs6 { left:4%; }
+.kundli-chart .rs7 { right:4%; }
+
+.grid-row { clear:both; display:block;}
+.grid-row .grid-col { width:32%; display:inline-block; vertical-align:top; margin-left:1%; margin-bottom:1em;}
+.grid-row .grid-col:nth-child(3n+1) { margin-left:0; clear:both;}
+.grid-col h2, .grid-col h3, .grid-col h4 { color:#e88e0c; margin-top:5px; margin-bottom:0;}
+.grid-col p { margin-top:0; margin-bottom:5px; font-size:12px;}
+.grid-col table, .grid-col .ui-table { font-size:12px;}
+.grid-col table thead, .grid-col .ui-table thead, .grid-col table th, .grid-col .ui-table th{ background:#fe9805; color:#fff; font-weight:400;}
+.grid-col table tbody, .grid-col .ui-table tbody, .grid-col table td, .grid-col .ui-table td { background:#eee;color:#333;}
+.grid-col table th, .grid-col .ui-table th { font-size:12px;padding:8px 4px;}
+.grid-col table td, .grid-col .ui-table td {font-size:12px; padding:4px 4px;}
+.grid-col table  th{ background:#fe9805; color:#fff; font-weight:400;}
+.grid-col table  th{ padding:8px 4px;}
+
+
+/* NEw */
+
+.pkundli-chart { background:url(images/kundli-box.png) no-repeat 50% 50%; background-size:contain; width:400px; height:200px; margin:90px auto; padding: 0 0; position:relative; text-align:center; font-family:'Roboto',sans-serif; font-size:18px; line-height:1; font-weight:400; -webkit-transition:all 500ms ease-out; transition:all 500ms ease-out;}
+.pkundli-chart span { width:20%; display:inline-block; padding:0 0.5em; }
+.pkundli-chart strong { display:inline-block; color:#fe9805; padding:0.25em 0 0.75em; font-weight:600;}
+.pkundli-chart > [class*=" rs"], .pkundli-chart > [class^="rs"] { position:absolute; -webkit-transition:all 600ms ease-out 400ms; transition:all 600ms ease-out 400ms;}
+.pkundli-chart .rs1, .pkundli-chart .rs2, .pkundli-chart .rs11, .pkundli-chart .rs12 { width:50%; top:0; text-align:center;}
+.pkundli-chart .rs1 strong, .pkundli-chart .rs2 strong, .pkundli-chart .rs11 strong, .pkundli-chart .rs12 strong { display:block; padding:1em 0;}
+.pkundli-chart .rs4 strong, .pkundli-chart .rs9 strong { display:block; padding:2em 0;}
+.pkundli-chart .rs3, .pkundli-chart .rs5 { top:22%;}
+.pkundli-chart .rs4 { top:16%;}
+.pkundli-chart .rs6, .pkundli-chart .rs7 { width:42%; top:46%;}
+.pkundli-chart .rs8, .pkundli-chart .rs10 { top:72%;}
+.pkundli-chart .rs9 { top:56%; }
+.pkundli-chart .rs11, .pkundli-chart .rs12 { top:82%;}
+
+.pkundli-chart .rs1, .pkundli-chart .rs11 { left:0;}
+.pkundli-chart .rs2, .pkundli-chart .rs12 { right:0;}
+.pkundli-chart .rs3, .pkundli-chart .rs8 { width:20%; left:1%; text-align:right;}
+.pkundli-chart .rs4, .pkundli-chart .rs9 { width:40%; left:30%;}
+.pkundli-chart .rs5, .pkundli-chart .rs10 { width:20%; right:1%; text-align:left;}
+.pkundli-chart .rs6 { left:1%; text-align:right;}
+.pkundli-chart .rs7 { right:1%; text-align:left;}
+
+#dashaHeaderTable { width:88%; }
+
+#dataTable tr:nth-child(even), #planetTable tr:nth-child(even),#cuspDetailTabl tr:nth-child(even),#transitPlanetTable tr:nth-child(even),#transitCuspTable tr:nth-child(even){background:#eee}
+#dataTable  tr:nth-child(odd),#planetTable tr:nth-child(odd),#cuspDetailTabl tr:nth-child(odd),#transitPlanetTable tr:nth-child(odd),#transitCuspTable tr:nth-child(odd){background: #F8F8F8 }
+
+/* #dataTable td{ background:#eee; color:#333;} */
+#dataTable td,#planetTable td,#cuspDetailTabl td,#transitPlanetTable td,#transitCuspTable td{ padding:4px 4px; text-align: left;}
+#dataTable th,#planetTable th,#cuspDetailTabl th,#transitPlanetTable th,#transitCuspTable th{ background:#fe9805; color:#fff; font-weight:400;padding:8px 4px;}
+#dataTable,#planetTable,#cuspDetailTabl,#transitPlanetTable,#transitCuspTable { margin-bottom: 30px}
+#tableDiv{margin-left: 50px;margin-right: 50px;}
+#cuspAspectTable{margin-left: 50px;margin-right: 50px;}
+#cuspPlanetTable{margin-left: 50px;margin-right: 50px;}
+
+@media screen and (max-width:960px){
+	.kundli-chart { width:740px; height:380px; font-size:12px;}
+	
+}
+@media screen and (max-width:768px){
+	.kundli-chart { width:540px; height:270px; font-size:12px;}
+	.kundli-chart .row2 strong { padding:0.75em 0;}
+	.kundli-chart .row4 > * { padding:1.6em 0;}
+	.kundli-chart .row5 > *:nth-child(2) strong { padding:1em 0;}
+	
+	.kundli-chart .rs1, .kundli-chart .rs2 { top:2%;}
+	.kundli-chart .rs4 { top:12%;}
+	
+	.grid-row .grid-col { width:49%;}
+	.grid-row .grid-col:nth-child(3n+1) { margin-left:1%; clear:none;}
+	.grid-row .grid-col:nth-child(2n+1) { margin-left:0; clear:both;}
+	#tableDiv{margin-left: 50px;margin-right: 50px;}
+	#cuspAspectTable{margin-left: 50px;margin-right: 50px;}
+	#cuspPlanetTable{margin-left: 50px;margin-right: 50px;}
+
+}
+@media screen and (max-width:560px){
+	.ui-table { font-size: 12px;}
+	.ui-table th, .ui-table td { padding:2px; line-height:1.5; }
+	
+	/*.kundli-chart { width:540px;}*/
+	
+	
+	.kundli-chart { width:460px; height:235px; font-size:10px;}
+	.kundli-chart .row2 strong { padding:0.5em 0 ;}
+	.kundli-chart .row4 > * { padding:0.4em 0 1em;}
+	.kundli-chart .row5 > *:nth-child(2) strong { padding:0.5em 0;}
+	
+	.kundli-chart .rs1, .kundli-chart .rs2 { top:8px;}
+	#tableDiv{margin-left: 10px;margin-right: 10px;}
+	#cuspAspectTable{margin-left: 10px;margin-right: 10px;}
+	#cuspPlanetTable{margin-left: 10px;margin-right: 10px;}
+
+	/*bharti*/
+	.kundli-chart > [class*=" rs"], .kundli-chart > [class^="rs"] {font-size: 10px;}
+	.kundli-chart > [class*=" in"], .kundli-chart > [class^="in"] {font-size: 10px;}
+	.kundli-chart .rs1, .kundli-chart .rs2 { top:2%;}
+
+}
+
+@media screen and (max-width:500px){
+	.kundli-chart { width:340px; height:175px; font-size:10px;}
+	.kundli-chart .row2 strong { padding:0.5em 0 ; font-size:10px;}
+	.kundli-chart .row4 > * { padding:0.4em 0 1em;}
+	.kundli-chart .row5 > *:nth-child(2) strong { padding:0.5em 0;}
+	
+	.kundli-chart .rs11, .kundli-chart .rs12 { top:77%;}
+	
+	.grid-row .grid-col { width:98%; margin-left:1%;}
+	.grid-row .grid-col:nth-child(3n+1) { margin-left:1%; clear:both;}
+	.grid-row .grid-col:nth-child(2n+1) { margin-left:1%; clear:both;}
+	
+        /*bharti*/
+	
+	.kundli-chart .rs1, .kundli-chart .rs2 { top:3%;}
+	
+	.pkundli-chart { width:280px; height:152px; font-size:10px;margin-left: -27px;}
+	.pkundli-chart .row2 strong { padding:0.3em 0 ;font-size:10px;}
+	.pkundli-chart .row4 > * { padding:0.2em 0 1em;}
+	.pkundli-chart .row5 > *:nth-child(2) strong { padding:0.3em 0;}
+	
+	.pkundli-chart .rs1 strong, .pkundli-chart .rs2 strong, .pkundli-chart .rs11 strong, .pkundli-chart .rs12 strong { padding:0.2em 0;font-size:10px;}
+	.pkundli-chart .rs4 strong, .pkundli-chart .rs9 strong { padding:1em 0;font-size:10px;}
+	.pkundli-chart .rs8, .pkundli-chart .rs10 { top:65%;}
+	.pkundli-chart .rs11, .pkundli-chart .rs12 { top:70%;}
+	
+	.pkundli-chart > [class*=" rs"], .pkundli-chart > [class^="rs"] {font-size: 10px;}
+	.pkundli-chart > [class*=" in"], .pkundli-chart > [class^="in"] {font-size: 10px;}
+
+	.pkundli-chart .rs9 { top:50%; }
+	.pkundli-chart .rs5, .pkundli-chart .rs10 {right:-2%; }
+	.pkundli-chart .rs5 { top:14%;}
+	.pkundli-chart .rs6, .pkundli-chart .rs7{top:42%} 
+
+	#dataTable{ font-size: 10px}
+	#planetTable{ font-size: 10px}
+	#cuspDetailTabl{ font-size: 10px}
+	#transitPlanetTable{ font-size: 10px}
+	#transitCuspTable{ font-size: 10px}
+	#tableDiv{margin-left: -5px;margin-right: -5px;font-size: 10px}
+	#cuspAspectTable{margin-left: -5px;margin-right: -5px;font-size: 10px}
+	#cuspPlanetTable{margin-left: -5px;margin-right: -5px;font-size: 10px}
+	#plntHeader{ font-size: 10px;}
+	#dashaHeaderTable { width:100%; }
+}
+
+@media screen and (max-width:350px){   
+    .kundli-chart { width:280px; height:142px; font-size:9px;}
+    .kundli-chart .row2 strong { padding:0.4em 0 ; font-size:10px;}
+    .kundli-chart .row4 > * { padding:0.3em 0 1em;}
+    .kundli-chart .row5 > *:nth-child(2) strong { padding:0.4em 0;}
+    .kundli-chart .rs1 strong, .kundli-chart .rs2 strong { padding:0 0;}
+    .kundli-chart .rs11 strong, .kundli-chart .rs12 strong { padding:0 0;}
+    .kundli-chart .rs4 strong, .kundli-chart .rs9 strong { padding:0 0;}
+
+	/*bharti*/
+    .kundli-chart .rs3 strong, .kundli-chart .rs5 strong, .kundli-chart .rs8 strong, .kundli-chart .rs10 strong { padding:0em 0;}
+
+    /*.kundli-chart > [class*=" rs"], .kundli-chart > [class^="rs"] {font-size: 9px;}*/
+    .kundli-chart > [class*=" in"], .kundli-chart > [class^="in"] {font-size: 9px;}
+    .kundli-chart > [class*=" rl"], .kundli-chart > [class^="rl"] {font-size: 10px;} 
+    
+    .grid-row .grid-col { width:98%; margin-left:1%;}
+    .grid-row .grid-col:nth-child(3n+1) { margin-left:1%; clear:both;}
+    .grid-row .grid-col:nth-child(2n+1) { margin-left:1%; clear:both;}
+	#plntHeader{ font-size: 10px;}
+   	#dashaHeaderTable { width:100%; }
+	
+}
+
+ 
+.kundli-chart #trans, .kundli-chart .trans {color: red;}
+#cir { color:#FE9805; font-size:15px; font-weight:800; }
+

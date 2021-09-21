@@ -1,0 +1,30 @@
+ <Context displayName="Welcome to TELEMUNE Kundli" docBase="kundliApp" 
+		path="/kundliApp" reloadable="true"> <Resource name="jdbc/kundliA" auth="Container" 
+		type="javax.sql.DataSource" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/mahajyotish_db" 
+		username="vedicastro" password="vedicastro" maxActive="50" maxIdle="1" 
+		maxWait="-1" /> <Resource name="jdbc/kundliB" auth="Container" type="javax.sql.DataSource" 
+		driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/kundli_kundli" 
+		username="kundli_kundli" password="kundli@mcl" maxActive="50" maxIdle="1" 
+		maxWait="-1" />
+		</Context>  
+
+<!-- <Context displayName="Welcome to TELEMUNE Kundli" docBase="kundliApp" 
+		path="/kundliApp" reloadable="true"> <Resource name="jdbc/kundliA" auth="Container" 
+		type="javax.sql.DataSource" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/kundli" 
+		username="kundli" password="kundli" maxActive="50" maxIdle="1" 
+		maxWait="-1" /> <Resource name="jdbc/kundliB" auth="Container" type="javax.sql.DataSource" 
+		driverClassName="org.mariadb.jdbc.Driver" url="jdbc:mariadb://localhost:3306/kundli" 
+		username="kundli" password="kundli" maxActive="50" maxIdle="1" 
+		maxWait="-1" />
+</Context> -->
+<!-- 
+<Context displayName="Welcome to TELEMUNE Kundli" docBase="kundliApp" 
+                path="/kundliApp" reloadable="true"> <Resource name="jdbc/kundliA" auth="Container" 
+                type="javax.sql.DataSource" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://10.100.1.21:3306/kundli" 
+                username="kundli" password="kundli" maxActive="50" maxIdle="1" 
+                maxWait="-1" /> <Resource name="jdbc/kundliB" auth="Container" type="javax.sql.DataSource" 
+                driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://10.100.1.21:3306/kundli" 
+                username="kundli" password="kundli" maxActive="50" maxIdle="1" 
+                maxWait="-1" />
+                </Context> 
+                 -->

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+ <!--  THIS IS THE TILES DEFINITION OF LOGIN TEMPLATE  -->
+<definition name="loginPage" template="/jsp/InnerloginLayout.jsp">
+<put-attribute name="body" value="/jsp/generate.jsp"/>
+</definition>
+<definition name="loginP" template="/jsp/innerLayout.jsp">
+<put-attribute name="body" value="/jsp/generateKundli.jsp"/>
+</definition>
+<definition name="addEventPage" template="/jsp/InnerloginLayout.jsp">
+<put-attribute name="body" value="/jsp/addEvent.jsp"/>
+</definition>
+<definition name="AfterloginPage" template="/jsp/InnerloginLayout.jsp">
+<put-attribute name="body" value="/jsp/generate.jsp"/>
+</definition>
+<definition name="kundliloginPage" template="/jsp/kundliloginLayout.jsp">
+<put-attribute name="body" value="/jsp/generate.jsp"/>
+</definition>
+
+<definition name="kundliMenu" template="/jsp/kundliMenu.jsp">
+<put-attribute name="body" value="/jsp/generateKundli.jsp"/>
+</definition>
+
+<definition name="userMgt" extends="AfterloginPage">
+<put-attribute name="body" value="/jsp/userMgtLink.jsp"/>
+</definition>
+<definition name="roleMgt" extends="AfterloginPage">
+<put-attribute name="body" value="/jsp/roleMgtLink.jsp"/>
+</definition>
+<definition name="changePass" extends="AfterloginPage">
+<put-attribute name="body" value="/jsp/changePassword.jsp"/>
+</definition>
+<definition name="addUser" extends="AfterloginPage">
+<put-attribute name="body" value="/jsp/addUser.jsp"/>
+</definition>
+<definition name="modifyUser" extends="AfterloginPage">
+<put-attribute name="body" value="/jsp/modifyUser.jsp"/>
+</definition>
+<definition name="viewUser" extends="AfterloginPage">
+<put-attribute name="body" value="/jsp/viewUser.jsp"/>
+</definition>
+<definition name="addRole" extends="AfterloginPage">
+<put-attribute name="body" value="/jsp/addRole.jsp"/>
+</definition>
+<definition name="modifyRole" extends="AfterloginPage">
+<put-attribute name="body" value="/jsp/modifyRole.jsp"/>
+</definition>
+<definition name="viewRole" extends="AfterloginPage">
+<put-attribute name="body" value="/jsp/viewRole.jsp"/>
+</definition>
+<definition name="viewAccessLink" extends="AfterloginPage">
+<put-attribute name="body" value="/jsp/viewAccessLink.jsp"/>
+</definition>
+<definition name="lagnaChart" extends="kundliloginPage">
+<put-attribute name="body" value="/jsp/lagnaChart.jsp"/>
+</definition>
+
+<definition name="emailJsp" extends="kundliMenu">
+<put-attribute name="body" value="/jsp/emailJsp.jsp"/>
+</definition>
+
+<definition name="planetryDetail" extends="AfterloginPage">
+<put-attribute name="body" value="/jsp/planetryDetail.jsp"/>
+</definition>
+<definition name="cuspalDetail" extends="AfterloginPage">
+<put-attribute name="body" value="/jsp/cuspalDetail.jsp"/>
+</definition>
+<definition name="dashaChart" extends="AfterloginPage">
+<put-attribute name="body" value="/jsp/dashaChart.jsp"/>
+</definition>
+<definition name="viewPdf" extends="AfterloginPage">
+<put-attribute name="body" value="/jsp/view.jsp"/>
+</definition>
+<definition name="kundliLogs" extends="loginPage">
+<put-attribute name="body" value="/jsp/kundliLogs.jsp"/>
+</definition>
+<definition name="emailPdf" extends="AfterloginPage">
+<put-attribute name="body" value="/jsp/email.jsp"/>
+</definition>
+<definition name="addEvent" extends="loginPage">
+<put-attribute name="body" value="/jsp/addEvent.jsp"/>
+</definition>
+<definition name="eventDetail" extends="addEvent">
+<put-attribute name="body" value="/jsp/eventDetail.jsp"/>
+</definition>
+<definition name="eventLog" extends="eventDetail">
+<put-attribute name="body" value="/jsp/eventLog.jsp"/>
+</definition>
+<definition name="editDetail" extends="addEvent">
+<put-attribute name="body" value="/jsp/editDetail.jsp"/>
+</definition>
+<definition name="logBookProf" extends="loginPage">
+<put-attribute name="body" value="/jsp/logBookProf.jsp"/>
+</definition>
+<definition name="logBookDetail" extends="loginPage">
+<put-attribute name="body" value="/jsp/logBookProfDetail.jsp"/>
+</definition>
+<definition name="custQuery" extends="loginPage">
+<put-attribute name="body" value="/jsp/custQuery.jsp"/>
+</definition>
+</tiles-definitions>

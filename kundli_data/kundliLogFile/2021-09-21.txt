@@ -1,0 +1,15 @@
+USER ID    ACTION     UPDATED DATE              REMARK                                                       DETAIL
+                                 
+1          LOGIN      2021-09-21  01:22:06      User Logged In                                               0:0:0:0:0:0:0:1                         
+1          GENERATE   2021-09-21  01:23:18      Generated Kundli For Name : HB DOB : 1976-04-09 TOB : 04:27:00 POB : Barnala 0:0:0:0:0:0:0:1                         
+1          LOGIN      2021-09-21  01:24:41      User Logged In                                               0:0:0:0:0:0:0:1                         
+1          GENERATE   2021-09-21  01:24:56      Generated Kundli For Name : bd garg DOB : 1980-12-08 TOB : 16:47:00 POB : barnala 0:0:0:0:0:0:0:1                         
+1          LOGIN      2021-09-21  02:12:37      User Logged In                                               0:0:0:0:0:0:0:1                         
+1          GENERATE   2021-09-21  02:12:52      Generated Kundli For Name : bd garg DOB : 1980-12-08 TOB : 16:47:00 POB : barnala 0:0:0:0:0:0:0:1                         
+1          LOGIN      2021-09-21  02_14_08      User Logged In                                               0:0:0:0:0:0:0:1                         
+1          LOGIN      2021-09-21  02_15_34      User Logged In                                               0:0:0:0:0:0:0:1                         
+1          GENERATE   2021-09-21  02_15_43      Generated Kundli For Name : bd garg DOB : 1980-12-08 TOB : 16:47:00 POB : barnala 0:0:0:0:0:0:0:1                         
+1          LOGIN      2021-09-21  02_19_55      User Logged In                                               0:0:0:0:0:0:0:1                         
+1          GENERATE   2021-09-21  02_20_04      Generated Kundli For Name : bd garg DOB : 1980-12-08 TOB : 16:47:00 POB : barnala 0:0:0:0:0:0:0:1                         
+1          LOGIN      2021-09-21  12_48_00      User Logged In                                               0:0:0:0:0:0:0:1                         
+1          GENERATE   2021-09-21  12_48_34      Generated Kundli For Name : Honey Chopra DOB : 1987-05-04 TOB : 22:45:00 POB : Delhi 0:0:0:0:0:0:0:1                         

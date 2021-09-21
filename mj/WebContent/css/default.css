@@ -1,0 +1,252 @@
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	padding-bottom: 20px;
+}
+
+div {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+div label {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	color: #888888;
+	font-weight: bold;
+}
+
+#mainDiv {
+	background-color: #E3B322;
+	border: 4px solid white;
+}
+/* .col-md-*,.col-md-* .col-md-*
+{
+padding-left: 8px;
+} */
+.header {
+	color: #A0A0A0;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#orangeHeader {
+	color: #FFA500;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 23px;
+	text-shadow: 0 0px 0 #111;
+	margin-top: 15px;
+	text-align: center;
+}
+
+.tableDataLink {
+	color: #FFA500;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	text-decoration: underline;
+}
+
+.table th {
+	background-color: orange;
+	color: white;
+}
+
+#formDiv {
+	background-color: #F0F0F0;
+	margin-left: 0px;
+	border-top: 4px solid orange;
+	border-radius: 6px;
+}
+
+#modList {
+	background-color: #B95F00;
+	color: white;
+	text-shadow: 0 0px 0 #F3F3F3;
+	border-bottom: 0px solid orange;
+	font-size: 12px;
+	padding-right: 40px;
+}
+
+#modList:hover {
+	background-color: #E8E8E8;
+	color: black;
+	text-shadow: 0 0px 0 #F3F3F3;
+}
+
+#lstStyle {
+       background-color: #B95F00;
+       color: black;
+       font-weight: bold;
+       text-shadow: 0 0px 0 #F3F3F3;
+}
+
+#common-panel {
+	background-color: #B95F00;
+	width: auto;
+}
+
+.form-horizontal .control-label {
+	color: #686868;
+	font-weight: bold;
+}
+
+.ui-btn-icon-left::after,.ui-btn-icon-right::after,.ui-btn-icon-top::after,.ui-btn-icon-bottom::after,.ui-btn-icon-notext::after
+	{
+	background-color: transparent;
+}
+
+.ui-bar-b,.ui-page-theme-b .ui-bar-inherit,html .ui-bar-b .ui-bar-inherit,html .ui-body-b .ui-bar-inherit,html body .ui-group-theme-b .ui-bar-inherit
+	{
+	background-color: whitesmoke;
+	border: 0px;
+}
+
+.ui-mobile label,div.ui-controlgroup-label {
+	font-size: 14px;
+}
+
+#headerStrip {
+	background-color: orange;
+	height: 50px;
+	margin-top: 20px;
+}
+
+#headerImg {
+	width: 100px;
+	height: 80px;
+	margin-top: -57px;
+}
+
+#common-panel {
+	font-size: 14px;
+}
+
+#VastuLogin {
+	overflow: hidden;
+	/* 	min-height:650px !important; */
+		/* min-height:750px !important; */
+			min-height:877px!important;
+/*	min-height: 250px;*/
+}
+
+#innerHeadingDiv
+{
+margin-top: 100px; margin-bottom: 20px;
+}
+
+@media screen and (min-width: 980px) /* Desktop */ {
+	#headerImg {
+		width: 100px;
+		height: 80px;
+		margin-top: -57px;
+	}
+	#headerStrip {
+		height: 50px;
+		margin-top: 20px;
+	}
+	#orangeHeader {
+		width: 270px;
+		margin-left: -75px;
+	}
+	#kundliMenu {
+		margin-top: 20px;
+	}
+	
+	#VastuLogin {
+		/*min-height: 300px;*/
+		/* min-height: auto; */
+	}
+}
+
+@media screen and (max-width: 979px) /* Tablet */ {
+	#headerImg {
+		width: 90px;
+		height: 72px;
+		margin-top: -55px;
+	}
+	#headerStrip {
+		height: 45px;
+		margin-top: 18px;
+	}
+	#orangeHeader {
+		width: 270px;
+		margin-left: -75px;
+	}
+	
+	#kundliMenu {
+		margin-top: 20px;
+	}
+}
+
+@media screen and (max-width: 500px) /* Mobile */ {
+	#headerImg {
+		width: 60px;
+		height: 48px;
+		margin-top: -37px;
+	}
+	#headerStrip {
+		background-color: orange;
+		height: 30px;
+		margin-top: 10px;
+	}
+	#orangeHeader {
+		width: 250px;
+		margin-left: -100px;
+	}
+	#VastuLogin {
+		overflow: hidden;
+		/* min-height: auto; */
+	}
+	#kundliMenu {
+		margin-top: 10px;
+	}
+	
+	.header {
+		font-size: 14px;
+	}
+	
+	#innerHeadingDiv
+	{
+		margin-top: 50px;
+	}
+
+.ui-mobile label,div.ui-controlgroup-label {
+        font-size: 10px;
+}
+
+	
+	
+}
+
+button {
+	padding: 10px;
+	min-height: 40px;
+}
+
+#backDiv {
+	padding-right: 10px;
+}
+
+#backDiv a {
+	float: right;
+}
+
+#backDiv a #backImage {
+	width: 50px;
+	height: 25px;
+	margin-bottom: 10px;
+	margin-right: 5px;
+}
+
+#buttonGroup{
+	margin-bottom: 20px; 
+	float: left; 
+	padding-left: 50px;
+	}
+
+
+#headerNme{
+      font-weight: bold;
+      color:orange; 
+}
